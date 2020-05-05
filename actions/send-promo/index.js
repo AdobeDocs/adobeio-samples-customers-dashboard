@@ -11,7 +11,7 @@
  */
 
 /**
- * This action triggers ACS workflow to send promotion email to a specific email address
+ * This action triggers Adobe Campaign Standard workflow to send promotion email to a specific email address
  */
 
 const { Core } = require('@adobe/aio-sdk')
