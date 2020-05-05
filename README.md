@@ -4,7 +4,7 @@ This Firefly app is a complete solution of the codelab [Build a Firefly App for 
 
 ## Setup
 
-- Populate the `.env` file in the project root and fill it as shown [below](#env)
+- Populate the `.env` file in the project root and fill it as shown [below](#env). You can also use [dot-env](dot-env) as a template.
 
 ## Local Dev
 
@@ -32,8 +32,13 @@ local serverless stack and also run your actions locally use the `aio app run --
 # This file should not be committed to source control
 
 ## please provide your Adobe I/O Runtime credentials
-# AIO_RUNTIME_AUTH=
-# AIO_RUNTIME_NAMESPACE=
+AIO_RUNTIME_AUTH=
+AIO_RUNTIME_NAMESPACE=
+
+## please provide your Adobe I/O Campaign Standard integration parameters
+CAMPAIGN_STANDARD_TENANT=
+CAMPAIGN_STANDARD_API_KEY=
+CAMPAIGN_STANDARD_WORKFLOW_ID=
 ```
 
 ### `package.json`
