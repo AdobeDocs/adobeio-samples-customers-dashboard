@@ -18,7 +18,8 @@ import ErrorBoundary from 'react-error-boundary'
 // react spectrum components
 import { Provider } from '@react-spectrum/provider'
 import { theme } from '@react-spectrum/theme-default'
-import { Button } from '@react-spectrum/button'
+import { ActionButton } from '@react-spectrum/button'
+import { AlertDialog, DialogTrigger } from '@react-spectrum/dialog'
 import { Flex, Grid } from '@react-spectrum/layout'
 import { ProgressCircle } from '@react-spectrum/progress'
 import { Heading, Text } from '@react-spectrum/typography'
@@ -95,19 +96,17 @@ export default class App extends React.Component {
   // invoke send-promo action by user email
   async sendPromo (email) {
     try {
-      if (window.confirm(`Send promo code to ${email}?`)) {
-        const headers = {}
+      const headers = {}
 
-        // set the authorization header and org from the ims props object
-        if (this.props.ims.token && !headers.authorization) {
-          headers.authorization = 'Bearer ' + this.props.ims.token
-        }
-        if (this.props.ims.org && !headers['x-org-id']) {
-          headers['x-org-id'] = this.props.ims.org
-        }
-        const actionResponse = await actionWebInvoke('send-promo', headers, { email })
-        console.log(`Response from send-promo:`, actionResponse)
+      // set the authorization header and org from the ims props object
+      if (this.props.ims.token && !headers.authorization) {
+        headers.authorization = 'Bearer ' + this.props.ims.token
       }
+      if (this.props.ims.org && !headers['x-org-id']) {
+        headers['x-org-id'] = this.props.ims.org
+      }
+      const actionResponse = await actionWebInvoke('send-promo', headers, { email })
+      console.log(`Response from send-promo:`, actionResponse)
     } catch (e) {
       // log and store any error message
       console.error(e)
@@ -123,23 +122,31 @@ export default class App extends React.Component {
       <Provider UNSAFE_className='provider' theme={ theme }>
         <Flex UNSAFE_className='main'>
           <Heading UNSAFE_className='main-title'>Welcome to customers-dashboard!</Heading>
-
           <Flex UNSAFE_className='profiles'>
             <h3 className='main-title'>Customer Profiles</h3>
             <ProgressCircle
-                  UNSAFE_className='actions-invoke-progress'
-                  aria-label='loading'
-                  isIndeterminate
-                  isHidden={ !this.state.actionInvokeInProgress }/>
+              UNSAFE_className='actions-invoke-progress'
+              aria-label='loading'
+              isIndeterminate
+              isHidden={ !this.state.actionInvokeInProgress }/>
             { !!profiles &&
               <Grid>
                 {profiles.map((profile, i) => {
                   return <Flex UNSAFE_className='profile'>
-                    <Button UNSAFE_className='actions-invoke-button'
-                      variant='primary'
-                      onPress={() => this.sendPromo(profile['email'])}>
-                      Send promo code
-                    </Button>
+                    <DialogTrigger>
+                      <ActionButton
+                        UNSAFE_className='actions-invoke-button'>
+                        Send promo code
+                      </ActionButton>
+                      <AlertDialog
+                        variant='confirmation'
+                        title='Send promo code'
+                        primaryActionLabel='Confirm'
+                        cancelLabel='Cancel'
+                        onPrimaryAction={ () => this.sendPromo(profile['email']) }>
+                        Do you want to send promo to { profile['email'] }?
+                      </AlertDialog>
+                    </DialogTrigger>
                     Name: { profile['firstName'] } { profile['lastName'] } - Email: { profile['email'] } - Date of birth: { profile['birthDate'] }
                   </Flex>
                 })}
