@@ -1,6 +1,6 @@
-# adobeio-awesomeapps-customers-dashboard
+# Firefly Sample App: Customer Profiles Dashboard
 
-This Firefly app is a complete solution of the codelab [Build a Firefly App for Customer Profiles using Adobe Campaign Standard API](https://github.com/AdobeDocs/adobeio-codelabs-campaign-standard)
+This Firefly app is a complete solution of the codelab [Build a Firefly App for Customer Profiles using Adobe Campaign Standard API](https://github.com/AdobeDocs/adobeio-codelabs-campaign-standard). It lists customer profiles from Adobe Campaign Standard and allows sending marketing campaign emails with personalized promo code.
 
 ## Setup
 
