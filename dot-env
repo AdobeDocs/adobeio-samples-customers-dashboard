@@ -10,4 +10,4 @@ CAMPAIGN_STANDARD_TENANT=
 CAMPAIGN_STANDARD_API_KEY=
 CAMPAIGN_STANDARD_WORKFLOW_ID=
 
-AIO_LAUNCH_URL_PREFIX="https://experience.adobe.com/?devMode=true#/apps/?localDevUrl="
+AIO_LAUNCH_URL_PREFIX="https://experience.adobe.com/?devMode=true#/custom-apps/?localDevUrl="

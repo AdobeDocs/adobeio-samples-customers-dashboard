@@ -40,13 +40,13 @@ describe('errorResponse', () => {
 describe('stringParameters', () => {
   test('no auth header', () => {
     const params = {
-      a: 1, b: 2, __ow_headers: { 'x-api-key': 'yolo' }
+      a: 1, b: 2, __ow_headers: { 'x-api-key': 'fake-api-key' }
     }
     expect(utils.stringParameters(params)).toEqual(JSON.stringify(params))
   })
   test('with auth header', () => {
     const params = {
-      a: 1, b: 2, __ow_headers: { 'x-api-key': 'yolo', authorization: 'secret' }
+      a: 1, b: 2, __ow_headers: { 'x-api-key': 'fake-api-key', authorization: 'secret' }
     }
     expect(utils.stringParameters(params)).toEqual(expect.stringContaining('"authorization":"<hidden>"'))
     expect(utils.stringParameters(params)).not.toEqual(expect.stringContaining('secret'))
@@ -67,13 +67,25 @@ describe('checkMissingRequestInputs', () => {
     expect(utils.checkMissingRequestInputs({ a: { b: { c: 1 } }, f: { g: 2 } }, ['a.b.c', 'f'])).toEqual(null)
   })
   test('({ a: 1, __ow_headers: { h: 1, i: 2 } }, undefined, [h])', () => {
-    expect(utils.checkMissingRequestInputs({ a: 1, __ow_headers: { h:1, i:2 } }, undefined, ['h'])).toEqual(null)
+    expect(utils.checkMissingRequestInputs({ a: 1, __ow_headers: { h: 1, i: 2 } }, undefined, ['h'])).toEqual(null)
   })
   test('({ a: 1, __ow_headers: { f: 2 } }, [a], [h, i])', () => {
-    expect(utils.checkMissingRequestInputs({ a: 1, __ow_headers: { f:2 } }, ['a'], ['h', 'i'])).toEqual('missing header(s) \'h,i\'')
+    expect(utils.checkMissingRequestInputs({ a: 1, __ow_headers: { f: 2 } }, ['a'], ['h', 'i'])).toEqual('missing header(s) \'h,i\'')
   })
   test('({ c: 1, __ow_headers: { f: 2 } }, [a, b], [h, i])', () => {
     expect(utils.checkMissingRequestInputs({ c: 1 }, ['a', 'b'], ['h', 'i'])).toEqual('missing header(s) \'h,i\' and missing parameter(s) \'a,b\'')
+  })
+  test('({ a: 0 }, [a])', () => {
+    expect(utils.checkMissingRequestInputs({ a: 0 }, ['a'])).toEqual(null)
+  })
+  test('({ a: null }, [a])', () => {
+    expect(utils.checkMissingRequestInputs({ a: null }, ['a'])).toEqual(null)
+  })
+  test('({ a: \'\' }, [a])', () => {
+    expect(utils.checkMissingRequestInputs({ a: '' }, ['a'])).toEqual('missing parameter(s) \'a\'')
+  })
+  test('({ a: undefined }, [a])', () => {
+    expect(utils.checkMissingRequestInputs({ a: undefined }, ['a'])).toEqual('missing parameter(s) \'a\'')
   })
 })
 

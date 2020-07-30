@@ -16,13 +16,9 @@ import PropTypes from 'prop-types'
 import ErrorBoundary from 'react-error-boundary'
 
 // react spectrum components
-import { Provider } from '@react-spectrum/provider'
-import { theme } from '@react-spectrum/theme-default'
-import { ActionButton } from '@react-spectrum/button'
-import { AlertDialog, DialogTrigger } from '@react-spectrum/dialog'
-import { Flex, Grid } from '@react-spectrum/layout'
-import { ProgressCircle } from '@react-spectrum/progress'
-import { Heading, Text } from '@react-spectrum/typography'
+// react spectrum components
+import { Provider, defaultTheme, ActionButton, AlertDialog, DialogTrigger,
+  Flex, Grid, ProgressCircle, Heading, Text } from '@adobe/react-spectrum'
 
 // local imports
 import './App.css'
@@ -73,8 +69,8 @@ export default class App extends React.Component {
     if (this.props.ims.token && !headers.authorization) {
       headers.authorization = 'Bearer ' + this.props.ims.token
     }
-    if (this.props.ims.org && !headers['x-org-id']) {
-      headers['x-org-id'] = this.props.ims.org
+    if (this.props.ims.org && !headers['x-gw-ims-org-id']) {
+      headers['x-gw-ims-org-id'] = this.props.ims.org
     }
     try {
       const actionResponse = await actionWebInvoke('get-profiles', headers, params)
@@ -102,8 +98,8 @@ export default class App extends React.Component {
       if (this.props.ims.token && !headers.authorization) {
         headers.authorization = 'Bearer ' + this.props.ims.token
       }
-      if (this.props.ims.org && !headers['x-org-id']) {
-        headers['x-org-id'] = this.props.ims.org
+      if (this.props.ims.org && !headers['x-gw-ims-org-id']) {
+        headers['x-gw-ims-org-id'] = this.props.ims.org
       }
       const actionResponse = await actionWebInvoke('send-promo', headers, { email })
       console.log(`Response from send-promo:`, actionResponse)
@@ -119,11 +115,10 @@ export default class App extends React.Component {
     return (
       // ErrorBoundary wraps child components to handle eventual rendering errors
       <ErrorBoundary onError={ this.onError } FallbackComponent={ this.fallbackComponent } >
-      <Provider UNSAFE_className='provider' theme={ theme }>
+      <Provider UNSAFE_className='provider' theme={ defaultTheme }>
         <Flex UNSAFE_className='main'>
           <Heading UNSAFE_className='main-title'>Welcome to customers-dashboard!</Heading>
           <Flex UNSAFE_className='profiles'>
-            <h3 className='main-title'>Customer Profiles</h3>
             <ProgressCircle
               UNSAFE_className='actions-invoke-progress'
               aria-label='loading'
