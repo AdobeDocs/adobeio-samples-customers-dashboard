@@ -5,18 +5,18 @@ packages:
       get-profiles:
         function: actions/get-profiles/index.js
         web: 'yes'
-        runtime: 'nodejs:10'
+        runtime: 'nodejs:12'
         inputs:
           LOG_LEVEL: debug
           tenant: $CAMPAIGN_STANDARD_TENANT
-          apiKey: $CAMPAIGN_STANDARD_API_KEY
+          apiKey: $SERVICE_API_KEY
         annotations:
           require-adobe-auth: true
           final: true
       generate-code:
         function: actions/generate-code/index.js
         web: 'yes'
-        runtime: 'nodejs:10'
+        runtime: 'nodejs:12'
         inputs:
           LOG_LEVEL: debug
         annotations:
@@ -24,11 +24,11 @@ packages:
       send-promo:
         function: actions/send-promo/index.js
         web: 'yes'
-        runtime: 'nodejs:10'
+        runtime: 'nodejs:12'
         inputs:
           LOG_LEVEL: debug
           tenant: $CAMPAIGN_STANDARD_TENANT
-          apiKey: $CAMPAIGN_STANDARD_API_KEY
+          apiKey: $SERVICE_API_KEY
           workflowId: $CAMPAIGN_STANDARD_WORKFLOW_ID
         annotations:
           require-adobe-auth: true
