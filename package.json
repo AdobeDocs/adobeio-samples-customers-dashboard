@@ -3,14 +3,16 @@
   "version": "0.0.1",
   "dependencies": {
     "@adobe/aio-sdk": "^2.3.0",
-    "@adobe/exc-app": "^0.2.17",
-    "@adobe/react-spectrum": "^3.0.1",
+    "@adobe/exc-app": "^0.2.21",
+    "@adobe/react-spectrum": "^3.4.0",
+    "@spectrum-icons/workflow": "^3.2.0",
+    "bwip-js": "^2.0.6",
     "core-js": "^3.6.4",
-    "react": "^16.13.1",
+    "react": "^17.0.1",
     "react-dom": "^16.13.1",
     "react-error-boundary": "^1.2.5",
+    "react-router-dom": "^5.2.0",
     "regenerator-runtime": "^0.13.5",
-    "bwip-js": "^2.0.6",
     "uuid": "^8.0.0"
   },
   "devDependencies": {

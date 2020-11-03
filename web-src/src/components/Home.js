@@ -10,61 +10,31 @@
  * governing permissions and limitations under the License.
  */
 
-// react imports
 import React from 'react'
 import PropTypes from 'prop-types'
-import ErrorBoundary from 'react-error-boundary'
+import { ActionButton, AlertDialog, DialogTrigger, Flex, Grid, ProgressCircle, Heading, Text, View } from '@adobe/react-spectrum'
+import actions from '../config.json'
+import actionWebInvoke from '../utils'
 
-// react spectrum components
-// react spectrum components
-import { Provider, defaultTheme, ActionButton, AlertDialog, DialogTrigger,
-  Flex, Grid, ProgressCircle, Heading, Text } from '@adobe/react-spectrum'
-
-// local imports
-import './App.css'
-import { actionWebInvoke } from './utils'
-
-/* Here is your entry point React Component, this class has access to the Adobe Experience Cloud Shell runtime object */
-
-export default class App extends React.Component {
+class Home extends React.Component {
   constructor (props) {
     super(props)
 
-    // error handler on UI rendering failure
-    this.onError = (e, componentStack) => {}
-
-    // component to show if UI fails rendering
-    this.fallbackComponent = ({ componentStack, error }) => (
-      <React.Fragment>
-        <h1 style={{ textAlign: 'center', marginTop: '20px' }}>Something went wrong :(</h1>
-        <pre>{ componentStack + '\n' + error.message }</pre>
-      </React.Fragment>
-    )
-
     this.state = {
-      actionSelected: null,
       actionResponseError: null,
-      actionHeaders: null,
-      actionHeadersValid: null,
-      actionParams: null,
-      actionParamsValid: null,
       actionInvokeInProgress: false,
       profiles: null
     }
-
-    this.sendPromo = this.sendPromo.bind(this)
-
     console.log('runtime object:', this.props.runtime)
     console.log('ims object:', this.props.ims)
   }
 
-  // load customer profiles at page ready
   async componentWillMount () {
     this.setState({ actionInvokeInProgress: true })
     
     const headers = {}
     const params = {}
-
+  
     // set the authorization header and org from the ims props object
     if (this.props.ims.token && !headers.authorization) {
       headers.authorization = 'Bearer ' + this.props.ims.token
@@ -73,19 +43,12 @@ export default class App extends React.Component {
       headers['x-gw-ims-org-id'] = this.props.ims.org
     }
     try {
-      const actionResponse = await actionWebInvoke('get-profiles', headers, params)
+      const actionResponse = await actionWebInvoke(actions['get-profiles'], headers, params)
       this.setState({ profiles: actionResponse.body.content, actionResponseError: null, actionInvokeInProgress: false })
       console.log(`action response:`, actionResponse)
     } catch (e) {
       console.error(e)
       this.setState({ profiles: null, actionResponseError: e.message, actionInvokeInProgress: false })
-    }
-  }
-
-  static get propTypes () {
-    return {
-      runtime: PropTypes.any,
-      ims: PropTypes.any
     }
   }
 
@@ -101,7 +64,7 @@ export default class App extends React.Component {
       if (this.props.ims.org && !headers['x-gw-ims-org-id']) {
         headers['x-gw-ims-org-id'] = this.props.ims.org
       }
-      const actionResponse = await actionWebInvoke('send-promo', headers, { email })
+      const actionResponse = await actionWebInvoke(actions['send-promo'], headers, { email })
       console.log(`Response from send-promo:`, actionResponse)
     } catch (e) {
       // log and store any error message
@@ -113,12 +76,9 @@ export default class App extends React.Component {
     const profiles = this.state.profiles
     console.log(`profiles object:`, profiles)
     return (
-      // ErrorBoundary wraps child components to handle eventual rendering errors
-      <ErrorBoundary onError={ this.onError } FallbackComponent={ this.fallbackComponent } >
-      <Provider UNSAFE_className='provider' theme={ defaultTheme }>
-        <Flex UNSAFE_className='main'>
-          <Heading UNSAFE_className='main-title'>Welcome to customers-dashboard!</Heading>
-          <Flex UNSAFE_className='profiles'>
+      <View>
+        <Heading level={1}>Customer Profiles</Heading>
+        <Flex UNSAFE_className='profiles'>
             <ProgressCircle
               UNSAFE_className='actions-invoke-progress'
               aria-label='loading'
@@ -127,7 +87,7 @@ export default class App extends React.Component {
             { !!profiles &&
               <Grid>
                 {profiles.map((profile, i) => {
-                  return <Flex UNSAFE_className='profile'>
+                  return <Flex UNSAFE_className='profile' key={ profile['PKey'] }>
                     <DialogTrigger>
                       <ActionButton
                         UNSAFE_className='actions-invoke-button'>
@@ -152,9 +112,14 @@ export default class App extends React.Component {
             }
 
           </Flex>
-        </Flex>
-      </Provider>
-      </ErrorBoundary>
+      </View>
     )
   }
 }
+
+Home.propTypes = {
+  runtime: PropTypes.any,
+  ims: PropTypes.any
+}
+
+export default Home
