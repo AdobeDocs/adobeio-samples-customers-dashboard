@@ -54,10 +54,10 @@ function App (props) {
             <View gridArea='content' padding='size-200'>
               <Switch>
                 <Route exact path='/'>
-                  <Home runtime={props.runtime} ims={props.ims} />
+                  <Home ims={props.ims} />
                 </Route>
                 <Route path='/actions'>
-                  <ActionsForm runtime={props.runtime} ims={props.ims} />
+                  <ActionsForm ims={props.ims} />
                 </Route>
                 <Route path='/about'>
                   <About></About>

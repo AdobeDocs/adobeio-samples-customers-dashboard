@@ -25,8 +25,6 @@ class Home extends React.Component {
       actionInvokeInProgress: false,
       profiles: null
     }
-    console.log('runtime object:', this.props.runtime)
-    console.log('ims object:', this.props.ims)
   }
 
   async componentWillMount () {
@@ -110,7 +108,6 @@ class Home extends React.Component {
             { !profiles &&
               <Text>No profiles!</Text>
             }
-
           </Flex>
       </View>
     )
@@ -118,7 +115,6 @@ class Home extends React.Component {
 }
 
 Home.propTypes = {
-  runtime: PropTypes.any,
   ims: PropTypes.any
 }
 

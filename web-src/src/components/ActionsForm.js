@@ -200,7 +200,6 @@ const ActionsForm = (props) => {
 }
 
 ActionsForm.propTypes = {
-  runtime: PropTypes.any,
   ims: PropTypes.any
 }
 
