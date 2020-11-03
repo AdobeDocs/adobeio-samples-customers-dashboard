@@ -2,6 +2,8 @@
 
 This Firefly app is a complete solution of the codelab [Build a Firefly App for Customer Profiles using Adobe Campaign Standard API](https://github.com/AdobeDocs/adobeio-codelabs-campaign-standard). It lists customer profiles from Adobe Campaign Standard and allows sending marketing campaign emails with personalized promo code.
 
+![demo](demo.png)
+
 ## Setup
 
 - Populate the `.env` file in the project root and fill it as shown [below](#env). You can also use [dot-env](dot-env) as a template.
