@@ -5,7 +5,7 @@ packages:
       get-profiles:
         function: actions/get-profiles/index.js
         web: 'yes'
-        runtime: 'nodejs:12'
+        runtime: 'nodejs:14'
         inputs:
           LOG_LEVEL: debug
           tenant: $CAMPAIGN_STANDARD_TENANT
@@ -16,7 +16,7 @@ packages:
       generate-code:
         function: actions/generate-code/index.js
         web: 'yes'
-        runtime: 'nodejs:12'
+        runtime: 'nodejs:14'
         inputs:
           LOG_LEVEL: debug
         annotations:
@@ -24,7 +24,7 @@ packages:
       send-promo:
         function: actions/send-promo/index.js
         web: 'yes'
-        runtime: 'nodejs:12'
+        runtime: 'nodejs:14'
         inputs:
           LOG_LEVEL: debug
           tenant: $CAMPAIGN_STANDARD_TENANT
