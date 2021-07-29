@@ -1,8 +1,8 @@
-/*
+/* 
 * <license header>
 */
 
-const utils = require('../../actions/utils')
+const utils = require('./../actions/utils.js')
 
 test('interface', () => {
   expect(typeof utils.errorResponse).toBe('function')

@@ -52,7 +52,7 @@ async function main (params) {
     const triggerResult = await campaignClient.triggerSignalActivity(wkfHref, { source: 'API', parameters: { email: params.email } })
     
     // log the trigger result
-    logger.info(triggerResult)
+    logger.debug(JSON.stringify(triggerResult, null, 2))
 
     const response = {
       statusCode: 200,

@@ -1,0 +1,42 @@
+operations:
+  view:
+    - type: web
+      impl: index.html
+actions: actions
+web: web-src
+runtimeManifest:
+  packages:
+    dx-excshell-1:
+      license: Apache-2.0
+      actions:
+        get-profiles:
+          function: actions/get-profiles/index.js
+          web: 'yes'
+          runtime: 'nodejs:14'
+          inputs:
+            LOG_LEVEL: debug
+            tenant: $CAMPAIGN_STANDARD_TENANT
+            apiKey: $SERVICE_API_KEY
+          annotations:
+            require-adobe-auth: true
+            final: true
+        generate-code:
+          function: actions/generate-code/index.js
+          web: 'yes'
+          runtime: 'nodejs:14'
+          inputs:
+            LOG_LEVEL: debug
+          annotations:
+            final: true
+        send-promo:
+          function: actions/send-promo/index.js
+          web: 'yes'
+          runtime: 'nodejs:14'
+          inputs:
+            LOG_LEVEL: debug
+            tenant: $CAMPAIGN_STANDARD_TENANT
+            apiKey: $SERVICE_API_KEY
+            workflowId: $CAMPAIGN_STANDARD_WORKFLOW_ID
+          annotations:
+            require-adobe-auth: true
+            final: true

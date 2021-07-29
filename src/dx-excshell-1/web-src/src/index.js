@@ -13,7 +13,7 @@
 import 'core-js/stable'
 import 'regenerator-runtime/runtime'
 
-import React from 'react'
+window.React = require('react')
 import ReactDOM from 'react-dom'
 
 import Runtime, { init } from '@adobe/exc-app'
@@ -74,8 +74,8 @@ function bootstrapInExcShell () {
   // set solution info, shortTitle is used when window is too small to display full title
   runtime.solution = {
     icon: 'AdobeExperienceCloud',
-    title: 'customerprofiles',
+    title: 'Customer Dashboard',
     shortTitle: 'JGR'
   }
-  runtime.title = 'customerprofiles'
+  runtime.title = 'Customer Dashboard'
 }

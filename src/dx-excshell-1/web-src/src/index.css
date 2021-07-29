@@ -10,6 +10,7 @@
  * governing permissions and limitations under the License.
  */
 
+
 html,
 body {
   margin: 0;
@@ -53,14 +54,4 @@ body {
 .SideNav-itemLink.is-selected {
   color: var(--spectrum-alias-text-color-hover,var(--spectrum-global-color-gray-900));
   background-color: var(--spectrum-alias-highlight-hover);
-}
-
-.profiles {
-  margin: auto auto 20px auto;
-  flex-direction: column;
-  align-items: center;
-}
-
-.profile {
-  margin: 10px 0;
 }

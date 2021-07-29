@@ -4,12 +4,17 @@ node_modules
 jspm_packages
 
 # build
+build
 dist
 .manifest-dist.yml
 
 # Config
 config.json
-.env
+.env*
+.aio
+
+# Adobe I/O console config
+console.json
 
 # Test output
 junit.xml
@@ -23,8 +28,15 @@ coverage
 .aws.tmp.creds.json
 .wskdebug.props.tmp
 
+# Parcel
+.parcel-cache
+
 # OSX
 .DS_Store
 
 # yeoman
 .yo-repository
+
+# logs folder for aio-run-detached
+logs
+

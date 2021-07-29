@@ -148,7 +148,6 @@ const ActionsForm = (props) => {
 
   // invokes a the selected backend actions with input headers and params
   async function invokeAction () {
-    console.log(`token = ${props.ims.token}`)
     setState({ ...state, actionInvokeInProgress: true, actionResult: 'calling action ... ' })
     const actionName = state.actionSelected
     const headers = state.actionHeaders || {}
@@ -200,6 +199,7 @@ const ActionsForm = (props) => {
 }
 
 ActionsForm.propTypes = {
+  runtime: PropTypes.any,
   ims: PropTypes.any
 }
 
